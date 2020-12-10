@@ -14,7 +14,7 @@ func Router() *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	basePath := "cnappdemo"
+	basePath := "sbcntr-backend"
 
 	AppHandler := handlers.NewAppHandler(NewSQLHandler())
 	healthCheckHandler := handlers.NewHealthCheckHandler()
