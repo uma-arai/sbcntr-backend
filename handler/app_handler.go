@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"github.com/iselegant/cnappdemo/domain/repository"
-	"github.com/iselegant/cnappdemo/interface/database"
-	"github.com/iselegant/cnappdemo/usecase"
-	"github.com/iselegant/cnappdemo/utils"
 	"github.com/labstack/echo"
+	"github.com/uma-arai/sbcntr-backend/domain/repository"
+	"github.com/uma-arai/sbcntr-backend/interface/database"
+	"github.com/uma-arai/sbcntr-backend/usecase"
+	"github.com/uma-arai/sbcntr-backend/utils"
 )
 
 // AppHandler ...

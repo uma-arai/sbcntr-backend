@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/iselegant/cnappdemo/infrastructure"
+	"github.com/uma-arai/sbcntr-backend/infrastructure"
 	"os"
 )
 

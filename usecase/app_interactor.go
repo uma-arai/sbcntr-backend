@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"github.com/iselegant/cnappdemo/domain/model"
-	"github.com/iselegant/cnappdemo/domain/repository"
-	"github.com/iselegant/cnappdemo/utils"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
+	"github.com/uma-arai/sbcntr-backend/domain/repository"
+	"github.com/uma-arai/sbcntr-backend/utils"
 )
 
 // AppInteractor ...

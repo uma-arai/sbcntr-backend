@@ -17,6 +17,6 @@ func NewHelloWorldHandler() *HelloWorldHandler {
 func (handler *HelloWorldHandler) SayHelloWorld() echo.HandlerFunc {
 
 	return func(c echo.Context) error {
-		return c.JSON(200, "Hello world!")
+		return c.JSON(200, "Hello world")
 	}
 }

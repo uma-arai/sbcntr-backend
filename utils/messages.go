@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/iselegant/cnappdemo/domain/model"
 	"github.com/labstack/echo"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
 )
 
 var messageConfig map[string]interface{}

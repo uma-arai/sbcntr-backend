@@ -1,9 +1,10 @@
 package infrastructure
 
 import (
-	"github.com/iselegant/cnappdemo/utils"
+	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" // for access to mysql
+	"github.com/uma-arai/sbcntr-backend/utils"
 )
 
 // DB ...
@@ -35,7 +36,8 @@ func NewSQLHandler() *SQLHandler {
 	conn, err := gorm.Open(DBMS, CONNECT)
 
 	if err != nil {
-    // panic(err.Error())
+		// panic(err.Error())
+		fmt.Println("Error: No database connection established.")
 	}
 	sqlHandler := new(SQLHandler)
 	sqlHandler.Conn = conn

@@ -1,6 +1,6 @@
-module github.com/iselegant/cnappdemo
+module github.com/uma-arai/sbcntr-backend
 
-go 1.13.5
+go 1.14
 
 require (
 	github.com/jinzhu/gorm v1.9.11

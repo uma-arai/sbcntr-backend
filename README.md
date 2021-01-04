@@ -8,8 +8,8 @@ This Repository provides demo web application coded by golang. This app is consi
 
 ## Prerequisite
 - Before start, you should build go runtime with go 1.13.5.
-- Please clone this repository according to GOPATH env and move to this directory "cnappdemo".
-  - You will find main directory in "$GOPATH/src/github.com/iselegant/cnappdemo"
+- Please clone this repository according to GOPATH env and move to this directory "sbcntr-backend".
+  - You will find main directory in "$GOPATH/src/github.com/uma-arai/sbcntr-backend"
 - Download required go module for this app by following command.
 ```bash
 ❯ go get golang.org/x/lint/golint
@@ -29,18 +29,18 @@ This Repository provides demo web application coded by golang. This app is consi
 ```
 ### Docker
 ```bash
-❯ docker build -t cnappdemo:latest .
+❯ docker build -t sbcntr-backend:latest .
 ❯ docker images
 REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
-cnappdemo                   latest              cdb20b70f267        58 minutes ago      4.45MB
+sbcntr-backend                   latest              cdb20b70f267        58 minutes ago      4.45MB
 :
-❯ docker run -d -p 80:80 cnappdemo:latest
+❯ docker run -d -p 80:80 sbcntr-backend:latest
 ```
 
 ### REST API (after deploy)
 ```bash
-❯ curl http://localhost:80/cnappdemo/v1/helloworld
-"Hello world!"
+❯ curl http://localhost:80/v1/helloworld
+"Hello world"
 
 ❯ curl http://localhost:80/healthcheck
 null

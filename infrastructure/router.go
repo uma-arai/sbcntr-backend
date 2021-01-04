@@ -1,9 +1,9 @@
 package infrastructure
 
 import (
-	"github.com/iselegant/cnappdemo/handler"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/uma-arai/sbcntr-backend/handler"
 )
 
 // Router ...
@@ -14,14 +14,13 @@ func Router() *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	basePath := "sbcntr-backend"
-
 	AppHandler := handlers.NewAppHandler(NewSQLHandler())
 	healthCheckHandler := handlers.NewHealthCheckHandler()
 	helloWorldHandler := handlers.NewHelloWorldHandler()
 
+	e.GET("/", healthCheckHandler.HealthCheck())
 	e.GET("/healthcheck", healthCheckHandler.HealthCheck())
-	e.GET(basePath+"/v1/helloworld", helloWorldHandler.SayHelloWorld())
-	e.GET(basePath+"/v1/app", AppHandler.GetAppInfo())
+	e.GET("/v1/helloworld", helloWorldHandler.SayHelloWorld())
+	e.GET("/v1/app", AppHandler.GetAppInfo())
 	return e
 }

@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"github.com/iselegant/cnappdemo/domain/model"
-	"github.com/iselegant/cnappdemo/interface/database"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
+	"github.com/uma-arai/sbcntr-backend/interface/database"
 )
 
 // AppRepositoryInterface ...
