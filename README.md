@@ -1,4 +1,4 @@
-# cnappdemo (Demo Web App)
+# sbcntr-backend (Demo Web App)
 
 ## Overview
 This Repository provides demo web application coded by golang. This app is consist of three APIs.
