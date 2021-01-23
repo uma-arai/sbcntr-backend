@@ -35,10 +35,10 @@ func NewConfigDB() *ConfigDB {
 	config := new(ConfigDB)
 
 	config.MySQL.DBMS = "mysql"
-	config.MySQL.Protocol = "tcp(" + os.Getenv("SBCNTR_DB_HOST") + ":3306)"
-	config.MySQL.Username = os.Getenv("SBCNTR_DB_USERNAME")
-	config.MySQL.Password = os.Getenv("SBCNTR_DB_PASSWORD")
-	config.MySQL.DBName = os.Getenv("SBCNTR_DB_NAME")
+	config.MySQL.Protocol = "tcp(" + os.Getenv("DB_HOST") + ":3306)"
+	config.MySQL.Username = os.Getenv("DB_USERNAME")
+	config.MySQL.Password = os.Getenv("DB_PASSWORD")
+	config.MySQL.DBName = os.Getenv("DB_NAME")
 
 	return config
 }
