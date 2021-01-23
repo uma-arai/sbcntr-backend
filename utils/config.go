@@ -25,7 +25,7 @@ type ConfigDB struct {
 // NewAPIConfig ...
 func NewAPIConfig() *APIConfig {
 	config := new(APIConfig)
-	config.HeaderValue.ClientID = os.Getenv("CNAPP_CLIENT_ID_HEADER")
+	config.HeaderValue.ClientID = os.Getenv("SBCNTR_CLIENT_ID_HEADER")
 
 	return config
 }
@@ -35,10 +35,10 @@ func NewConfigDB() *ConfigDB {
 	config := new(ConfigDB)
 
 	config.MySQL.DBMS = "mysql"
-	config.MySQL.Protocol = "tcp(" + os.Getenv("CNAPP_DB_HOST") + ":3306)"
-	config.MySQL.Username = os.Getenv("CNAPP_DB_USERNAME")
-	config.MySQL.Password = os.Getenv("CNAPP_DB_PASSWORD")
-	config.MySQL.DBName = os.Getenv("CNAPP_DB_NAME")
+	config.MySQL.Protocol = "tcp(" + os.Getenv("SBCNTR_DB_HOST") + ":3306)"
+	config.MySQL.Username = os.Getenv("SBCNTR_DB_USERNAME")
+	config.MySQL.Password = os.Getenv("SBCNTR_DB_PASSWORD")
+	config.MySQL.DBName = os.Getenv("SBCNTR_DB_NAME")
 
 	return config
 }
