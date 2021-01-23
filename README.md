@@ -17,10 +17,10 @@ This Repository provides demo web application coded by golang. This app is consi
 ❯ go mod download
 ```
 - Set following env variables to connect DB.
-  - CNAPP_DB_HOST
-  - CNAPP_DB_USERNAME 
-  - CNAPP_DB_PASSWORD 
-  - CNAPP_DB_NAME
+  - DB_HOST
+  - DB_USERNAME 
+  - DB_PASSWORD 
+  - DB_NAME
 
 ## How to Build and Deploy
 ### Golang
