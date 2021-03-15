@@ -1,6 +1,5 @@
 # Multi stage building strategy for reducing image size.
 FROM golang:1.14-alpine3.12 AS build-env
-ENV GO111MODULE=on
 RUN mkdir /app
 ADD . /app
 WORKDIR /app
@@ -14,12 +13,7 @@ RUN apk add --no-cache --virtual .go-builddeps git gcc make build-base alpine-sd
     goupx main
 
 # If use TLS connection in container, add ca-certificates following command.
-# > RUN apk add --no-cache ca-certificates
-FROM alpine:3.12.3
-RUN mkdir /app && \
-    apk add --no-cache tzdata&& \
-    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-WORKDIR /app
-COPY --from=build-env /app/main /app
+FROM gcr.io/distroless/base-debian10
+COPY --from=build-env /app/main /
 EXPOSE 80
-ENTRYPOINT ["/app/main"]
+ENTRYPOINT ["/main"]
