@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"github.com/labstack/echo"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
+	"net/http"
 )
 
 // HelloWorldHandler ...
@@ -15,8 +17,10 @@ func NewHelloWorldHandler() *HelloWorldHandler {
 
 // SayHelloWorld ...
 func (handler *HelloWorldHandler) SayHelloWorld() echo.HandlerFunc {
-
+	body := &model.Hello{
+		Data: "Hello world",
+	}
 	return func(c echo.Context) error {
-		return c.JSON(200, "Hello world")
+		return c.JSON(http.StatusOK, body)
 	}
 }
