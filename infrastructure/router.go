@@ -17,10 +17,15 @@ func Router() *echo.Echo {
 	AppHandler := handlers.NewAppHandler(NewSQLHandler())
 	healthCheckHandler := handlers.NewHealthCheckHandler()
 	helloWorldHandler := handlers.NewHelloWorldHandler()
+	NotificationHandler := handlers.NewNotificationHandler(NewSQLHandler())
 
 	e.GET("/", healthCheckHandler.HealthCheck())
 	e.GET("/healthcheck", healthCheckHandler.HealthCheck())
 	e.GET("/v1/helloworld", helloWorldHandler.SayHelloWorld())
 	e.GET("/v1/app", AppHandler.GetAppInfo())
+
+	e.GET("/v1/Notifications", NotificationHandler.GetNotifications())
+	// TODO modify to count handler
+	e.GET("/v1/NotificationCount", NotificationHandler.GetNotifications())
 	return e
 }
