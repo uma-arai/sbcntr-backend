@@ -11,8 +11,8 @@ type NotificationInteractor struct {
 	NotificationRepository repository.NotificationRepositoryInterface
 }
 
-// GetAppInfo ...
-func (interactor *NotificationInteractor) GetNotifications(id string) (app model.Notification, err error) {
+// GetNotifications ...
+func (interactor *NotificationInteractor) GetNotifications(id string) (app model.Notifications, err error) {
 
 	app, err = interactor.NotificationRepository.Where(id)
 	if err != nil {
