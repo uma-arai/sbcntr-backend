@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"fmt"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" // for access to mysql
 	"github.com/uma-arai/sbcntr-backend/utils"
@@ -37,7 +38,8 @@ func NewSQLHandler() *SQLHandler {
 
 	if err != nil {
 		// panic(err.Error())
-		fmt.Println("Error: No database connection established.")
+
+		fmt.Println("Error: No database connection established.", CONNECT)
 	}
 	sqlHandler := new(SQLHandler)
 	sqlHandler.Conn = conn
@@ -48,4 +50,9 @@ func NewSQLHandler() *SQLHandler {
 // Where ...
 func (handler *SQLHandler) Where(out interface{}, query interface{}, args ...interface{}) interface{} {
 	return handler.Conn.Where(query, args).Find(out)
+}
+
+// Count ...
+func (handler *SQLHandler) Count(out *int, table string) interface{} {
+	return handler.Conn.Table(table).Count(out)
 }

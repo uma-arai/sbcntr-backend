@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo"
 	"github.com/uma-arai/sbcntr-backend/domain/model"
 	"github.com/uma-arai/sbcntr-backend/domain/repository"
 	"github.com/uma-arai/sbcntr-backend/interface/database"
 	"github.com/uma-arai/sbcntr-backend/usecase"
-	"net/http"
+	"github.com/uma-arai/sbcntr-backend/utils"
 )
 
 // NotificationHandler ...
@@ -36,6 +38,7 @@ func (handler *NotificationHandler) GetNotifications() echo.HandlerFunc {
 			Category:    "info",
 			Read:        false,
 			CreatedAt:   "2021/03/17 10:39:06",
+			UpdatedAt:   "2021/03/17 10:39:06",
 		}
 
 		body := &model.Notifications{Data: []model.Notification{
@@ -59,20 +62,20 @@ func (handler *NotificationHandler) GetNotifications() echo.HandlerFunc {
 // GetNotificationCount ...
 func (handler *NotificationHandler) GetNotificationCount() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
-		body := &model.NotificationCount{
-			Data: 5,
-		}
-
-		// TODO: DB connection
-
-		return c.JSON(http.StatusOK, body)
-		//
-		//
-		//resJSON, err := handler.Interactor.GetNotifications(id)
-		//if err != nil {
-		//	return utils.GetErrorMassage(c, "en", err)
+		//body := &model.NotificationCount{
+		//	Data: 5,
 		//}
 		//
-		//return c.JSON(200, resJSON)
+		//// TODO: DB connection
+		//
+		//return c.JSON(http.StatusOK, body)
+		//
+		//
+		resJSON, err := handler.Interactor.GetNotificationCount()
+		if err != nil {
+			return utils.GetErrorMassage(c, "en", err)
+		}
+
+		return c.JSON(http.StatusOK, resJSON)
 	}
 }

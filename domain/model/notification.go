@@ -9,6 +9,7 @@ type (
 		Category    string `json:"category" gorm:"column:category"`
 		Read        bool   `json:"read" gorm:"column:read"`
 		CreatedAt   string `json:"createdAt" gorm:"column:createdAt"`
+		UpdatedAt   string `json:"updatedAt" gorm:"column:updatedAt"`
 	}
 
 	// Notifications ... array entity for notification
