@@ -25,7 +25,7 @@ func (repo *NotificationRepository) Where(id string) (app model.Notifications, e
 // Count ...
 func (repo *NotificationRepository) Count() (data model.NotificationCount, err error) {
 	var count int
-	repo.SQLHandler.Count(&count, "notification")
+	repo.SQLHandler.Count(&count, "Notification")
 
 	return model.NotificationCount{Data: count}, nil
 }
