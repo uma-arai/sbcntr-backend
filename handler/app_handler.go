@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo"
 	"github.com/uma-arai/sbcntr-backend/domain/repository"
 	"github.com/uma-arai/sbcntr-backend/interface/database"
@@ -24,14 +26,15 @@ func NewAppHandler(sqlHandler database.SQLHandler) *AppHandler {
 	}
 }
 
-// GetAppInfo ...
-func (handler *AppHandler) GetAppInfo() echo.HandlerFunc {
-
+// GetItems ...
+func (handler *AppHandler) GetItems() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
-
-		id := c.QueryParam("id")
-		if id == "" {
-			return c.JSON(400, "Invalid parameter id.")
+		var fav bool
+		favorite := c.QueryParam("favorite")
+		if favorite == "" {
+			fav = false
+		} else {
+			fav = true
 		}
 
 		//err = utils.HeaderCheck(c, echo.HeaderContentType, echo.MIMEApplicationJSON)
@@ -44,11 +47,31 @@ func (handler *AppHandler) GetAppInfo() echo.HandlerFunc {
 		//	return utils.GetErrorMassage(c, "en", err)
 		//}
 
-		resJSON, err := handler.Interactor.GetAppInfo(id)
+		resJSON, err := handler.Interactor.GetItems(fav)
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}
 
-		return c.JSON(200, resJSON)
+		return c.JSON(http.StatusOK, resJSON)
+	}
+}
+
+// CreateItem ...
+func (handler *AppHandler) CreateItem() echo.HandlerFunc {
+	return func(c echo.Context) (err error) {
+		var fav bool
+		favorite := c.QueryParam("favorite")
+		if favorite == "" {
+			fav = false
+		} else {
+			fav = true
+		}
+
+		resJSON, err := handler.Interactor.GetItems(fav)
+		if err != nil {
+			return utils.GetErrorMassage(c, "en", err)
+		}
+
+		return c.JSON(http.StatusOK, resJSON)
 	}
 }

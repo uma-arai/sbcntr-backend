@@ -62,6 +62,11 @@ func (handler *SQLHandler) Count(out *int, model interface{}, query interface{},
 	return handler.Conn.Model(model).Where(query, args).Count(out)
 }
 
+// Create ...
+func (handler *SQLHandler) Create(out interface{}) interface{} {
+	return handler.Conn.CreateTable(&out)
+}
+
 // Update ...
 func (handler *SQLHandler) Update(out interface{}, value interface{}, query interface{}, args ...interface{}) interface{} {
 	return handler.Conn.Model(out).Where(query, args).Updates(value)

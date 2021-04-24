@@ -11,10 +11,9 @@ type AppInteractor struct {
 	AppRepository repository.AppRepositoryInterface
 }
 
-// GetAppInfo ...
-func (interactor *AppInteractor) GetAppInfo(id string) (app model.App, err error) {
-
-	app, err = interactor.AppRepository.Where(id)
+// GetItems ...
+func (interactor *AppInteractor) GetItems(favorite bool) (app model.Items, err error) {
+	app, err = interactor.AppRepository.FindAll()
 	if err != nil {
 		err = utils.SetErrorMassage("10001E")
 		return
