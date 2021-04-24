@@ -52,7 +52,12 @@ func (handler *SQLHandler) Where(out interface{}, query interface{}, args ...int
 	return handler.Conn.Where(query, args).Find(out)
 }
 
+// Scan ...
+func (handler SQLHandler) Scan(out interface{}, order string) interface{} {
+	return handler.Conn.Order(order).Find(out)
+}
+
 // Count ...
-func (handler *SQLHandler) Count(out *int, table string) interface{} {
-	return handler.Conn.Table(table).Count(out)
+func (handler *SQLHandler) Count(out *int, model interface{}) interface{} {
+	return handler.Conn.Model(model).Count(out)
 }

@@ -22,3 +22,8 @@ type (
 		Data int `json:"data"`
 	}
 )
+
+// TableName ... override GORM table name accessor
+func (Notification) TableName() string {
+	return "Notification"
+}

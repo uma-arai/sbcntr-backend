@@ -12,9 +12,9 @@ type NotificationInteractor struct {
 }
 
 // GetNotifications ...
-func (interactor *NotificationInteractor) GetNotifications(id string) (app model.Notifications, err error) {
+func (interactor *NotificationInteractor) GetNotifications() (app model.Notifications, err error) {
 
-	app, err = interactor.NotificationRepository.Where(id)
+	app, err = interactor.NotificationRepository.FindAll()
 	if err != nil {
 		err = utils.SetErrorMassage("10001E")
 		return
