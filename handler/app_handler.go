@@ -42,8 +42,7 @@ func (handler *AppHandler) GetItems() echo.HandlerFunc {
 		//if err != nil {
 		//	return utils.GetErrorMassage(c, "en", err)
 		//}
-
-		resJSON, err := handler.Interactor.GetItems(favorite == "")
+		resJSON, err := handler.Interactor.GetItems(favorite)
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}
@@ -100,12 +99,12 @@ func (handler *AppHandler) CreateItem() echo.HandlerFunc {
 // UpdateFavoriteAttr ...
 func (handler *AppHandler) UpdateFavoriteAttr() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
-		i := new(model.Item)
-		if err = c.Bind(i); err != nil {
+		input := new(model.Item)
+		if err = c.Bind(input); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 		}
 
-		resJSON, err := handler.Interactor.UpdateFavoriteAttr(*i)
+		resJSON, err := handler.Interactor.UpdateFavoriteAttr(*input)
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}

@@ -8,6 +8,7 @@ import (
 // AppRepositoryInterface ...
 type AppRepositoryInterface interface {
 	FindAll() (items model.Items, err error)
+	Find(query interface{}, args ...interface{}) (items model.Items, err error)
 	Create(input model.Item) (out model.Response, err error)
 	Update(value map[string]interface{}, query interface{}, args ...interface{}) (item model.Item, err error)
 }
@@ -20,6 +21,12 @@ type AppRepository struct {
 // FindAll ...
 func (repo *AppRepository) FindAll() (items model.Items, err error) {
 	repo.SQLHandler.Scan(&items.Data, "id desc")
+	return
+}
+
+// Find ...
+func (repo *AppRepository) Find(query interface{}, args ...interface{}) (items model.Items, err error) {
+	repo.SQLHandler.Where(&items.Data, query, args...)
 	return
 }
 

@@ -49,6 +49,10 @@ func NewSQLHandler() *SQLHandler {
 
 // Where ...
 func (handler *SQLHandler) Where(out interface{}, query interface{}, args ...interface{}) interface{} {
+	if query == "" {
+		return handler.Conn.Find(out)
+	}
+
 	return handler.Conn.Where(query, args).Find(out)
 }
 

@@ -12,8 +12,21 @@ type AppInteractor struct {
 }
 
 // GetItems ...
-func (interactor *AppInteractor) GetItems(favorite bool) (app model.Items, err error) {
-	app, err = interactor.AppRepository.FindAll()
+func (interactor *AppInteractor) GetItems(favorite string) (app model.Items, err error) {
+	var query string
+	var args interface{}
+	if favorite == "true" {
+		query = "favorite = ?"
+		args = true
+	} else if favorite == "false" {
+		query = "favorite = ?"
+		args = false
+	} else {
+		query = ""
+		args = ""
+	}
+
+	app, err = interactor.AppRepository.Find(query, args)
 	if err != nil {
 		err = utils.SetErrorMassage("10001E")
 		return

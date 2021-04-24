@@ -20,7 +20,7 @@ type Hello struct {
 type (
 	// Item ...
 	Item struct {
-		ID        string `json:"id" gorm:"column:id"`
+		ID        int    `json:"id" gorm:"column:id"`
 		Title     string `json:"title" gorm:"column:title"`
 		Name      string `json:"name" gorm:"column:name"`
 		Favorite  bool   `json:"favorite" gorm:"column:favorite"`
