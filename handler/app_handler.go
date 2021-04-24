@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -56,27 +55,6 @@ func (handler *AppHandler) GetItems() echo.HandlerFunc {
 // CreateItem ...
 func (handler *AppHandler) CreateItem() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
-		//name := c.FormValue("name")
-		//if name == "" {
-		//	return c.JSON(http.StatusBadRequest, model.Response{
-		//		Message: "No name param found",
-		//	})
-		//}
-		//
-		//title := c.FormValue("title")
-		//if title == "" {
-		//	return c.JSON(http.StatusBadRequest, model.Response{
-		//		Message: "No title param found",
-		//	})
-		//
-		//}
-		//
-		//img := c.FormValue("img")
-		//if img == "" {
-		//	return c.JSON(http.StatusBadRequest, model.Response{
-		//		Message: "No img param found",
-		//	})
-		//}
 		i := new(model.Item)
 		if err = c.Bind(i); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -110,9 +88,24 @@ func (handler *AppHandler) CreateItem() echo.HandlerFunc {
 			})
 		}
 
-		fmt.Println(input)
-
 		resJSON, err := handler.Interactor.CreateItem(input)
+		if err != nil {
+			return utils.GetErrorMassage(c, "en", err)
+		}
+
+		return c.JSON(http.StatusOK, resJSON)
+	}
+}
+
+// UpdateFavoriteAttr ...
+func (handler *AppHandler) UpdateFavoriteAttr() echo.HandlerFunc {
+	return func(c echo.Context) (err error) {
+		i := new(model.Item)
+		if err = c.Bind(i); err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		}
+
+		resJSON, err := handler.Interactor.UpdateFavoriteAttr(*i)
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}
