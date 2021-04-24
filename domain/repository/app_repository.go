@@ -8,7 +8,7 @@ import (
 // AppRepositoryInterface ...
 type AppRepositoryInterface interface {
 	FindAll() (items model.Items, err error)
-	Create(item model.Item) (out model.Item, err error)
+	Create(input model.Item) (out model.Response, err error)
 	Update(value map[string]interface{}, query interface{}, args ...interface{}) (notification model.Notification, err error)
 }
 
@@ -24,9 +24,20 @@ func (repo *AppRepository) FindAll() (items model.Items, err error) {
 }
 
 // Create ...
-func (repo *AppRepository) Create(item model.Item) (out model.Item, err error) {
-	repo.SQLHandler.Create(item)
-	return
+func (repo *AppRepository) Create(input model.Item) (out model.Response, err error) {
+	_, err = repo.SQLHandler.Create(&input)
+
+	if err != nil {
+		return model.Response{
+			Code:    400,
+			Message: "Create error",
+		}, err
+	}
+
+	return model.Response{
+		Code:    200,
+		Message: "OK",
+	}, nil
 }
 
 // Update ...

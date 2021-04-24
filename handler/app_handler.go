@@ -1,7 +1,11 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
+	"time"
+
+	"github.com/uma-arai/sbcntr-backend/domain/model"
 
 	"github.com/labstack/echo"
 	"github.com/uma-arai/sbcntr-backend/domain/repository"
@@ -29,14 +33,7 @@ func NewAppHandler(sqlHandler database.SQLHandler) *AppHandler {
 // GetItems ...
 func (handler *AppHandler) GetItems() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
-		var fav bool
 		favorite := c.QueryParam("favorite")
-		if favorite == "" {
-			fav = false
-		} else {
-			fav = true
-		}
-
 		//err = utils.HeaderCheck(c, echo.HeaderContentType, echo.MIMEApplicationJSON)
 		//if err != nil {
 		//	return utils.GetErrorMassage(c, "en", err)
@@ -47,7 +44,7 @@ func (handler *AppHandler) GetItems() echo.HandlerFunc {
 		//	return utils.GetErrorMassage(c, "en", err)
 		//}
 
-		resJSON, err := handler.Interactor.GetItems(fav)
+		resJSON, err := handler.Interactor.GetItems(favorite == "")
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}
@@ -59,15 +56,63 @@ func (handler *AppHandler) GetItems() echo.HandlerFunc {
 // CreateItem ...
 func (handler *AppHandler) CreateItem() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
-		var fav bool
-		favorite := c.QueryParam("favorite")
-		if favorite == "" {
-			fav = false
-		} else {
-			fav = true
+		//name := c.FormValue("name")
+		//if name == "" {
+		//	return c.JSON(http.StatusBadRequest, model.Response{
+		//		Message: "No name param found",
+		//	})
+		//}
+		//
+		//title := c.FormValue("title")
+		//if title == "" {
+		//	return c.JSON(http.StatusBadRequest, model.Response{
+		//		Message: "No title param found",
+		//	})
+		//
+		//}
+		//
+		//img := c.FormValue("img")
+		//if img == "" {
+		//	return c.JSON(http.StatusBadRequest, model.Response{
+		//		Message: "No img param found",
+		//	})
+		//}
+		i := new(model.Item)
+		if err = c.Bind(i); err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 		}
 
-		resJSON, err := handler.Interactor.GetItems(fav)
+		input := model.Item{
+			Title:     i.Title,
+			Name:      i.Name,
+			Favorite:  false,
+			Img:       i.Img,
+			CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			UpdatedAt: time.Now().Format("2006-01-02 15:04:05"),
+		}
+
+		if input.Name == "" {
+			return c.JSON(http.StatusBadRequest, model.Response{
+				Message: "No name param found",
+			})
+		}
+
+		if input.Title == "" {
+			return c.JSON(http.StatusBadRequest, model.Response{
+				Message: "No title param found",
+			})
+
+		}
+
+		if input.Img == "" {
+			return c.JSON(http.StatusBadRequest, model.Response{
+				Message: "No img param found",
+			})
+		}
+
+		fmt.Println(input)
+
+		resJSON, err := handler.Interactor.CreateItem(input)
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}

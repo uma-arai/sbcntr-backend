@@ -63,8 +63,11 @@ func (handler *SQLHandler) Count(out *int, model interface{}, query interface{},
 }
 
 // Create ...
-func (handler *SQLHandler) Create(out interface{}) interface{} {
-	return handler.Conn.CreateTable(&out)
+func (handler *SQLHandler) Create(input interface{}) (result interface{}, err error) {
+	fmt.Println(input)
+	response := handler.Conn.Create(input)
+
+	return response.Value, response.Error
 }
 
 // Update ...

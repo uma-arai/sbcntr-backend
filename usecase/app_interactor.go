@@ -21,3 +21,14 @@ func (interactor *AppInteractor) GetItems(favorite bool) (app model.Items, err e
 
 	return
 }
+
+// CreateItem ...
+func (interactor *AppInteractor) CreateItem(input model.Item) (response model.Response, err error) {
+	response, err = interactor.AppRepository.Create(input)
+	if err != nil {
+		err = utils.SetErrorMassage("10001E")
+		return
+	}
+
+	return
+}
