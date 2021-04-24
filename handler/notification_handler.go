@@ -54,14 +54,31 @@ func (handler *NotificationHandler) GetNotifications() echo.HandlerFunc {
 	}
 }
 
-// GetNotificationCount ...
-func (handler *NotificationHandler) GetNotificationCount() echo.HandlerFunc {
+// GetUnreadNotificationCount ...
+func (handler *NotificationHandler) GetUnreadNotificationCount() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
 		//body := &model.NotificationCount{
 		//	Data: 5,
 		//}
 		//return c.JSON(http.StatusOK, body)
-		resJSON, err := handler.Interactor.GetNotificationCount()
+		resJSON, err := handler.Interactor.GetUnreadNotificationCount()
+		if err != nil {
+			return utils.GetErrorMassage(c, "en", err)
+		}
+
+		return c.JSON(http.StatusOK, resJSON)
+	}
+}
+
+// PostNotificationsRead ...
+func (handler *NotificationHandler) PostNotificationsRead() echo.HandlerFunc {
+	return func(c echo.Context) (err error) {
+		//id := c.FormValue("id")
+		//if id == "" {
+		//	return c.JSON(400, "Invalid parameter id.")
+		//}
+
+		resJSON, err := handler.Interactor.MarkNotificationsRead()
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}

@@ -7,7 +7,7 @@ type (
 		Title       string `json:"title" gorm:"column:title"`
 		Description string `json:"description" gorm:"column:description"`
 		Category    string `json:"category" gorm:"column:category"`
-		Read        bool   `json:"read" gorm:"column:read"`
+		Unread      bool   `json:"unread" gorm:"column:unread"`
 		CreatedAt   string `json:"createdAt" gorm:"column:createdAt"`
 		UpdatedAt   string `json:"updatedAt" gorm:"column:updatedAt"`
 	}

@@ -58,6 +58,11 @@ func (handler SQLHandler) Scan(out interface{}, order string) interface{} {
 }
 
 // Count ...
-func (handler *SQLHandler) Count(out *int, model interface{}) interface{} {
-	return handler.Conn.Model(model).Count(out)
+func (handler *SQLHandler) Count(out *int, model interface{}, query interface{}, args ...interface{}) interface{} {
+	return handler.Conn.Model(model).Where(query, args).Count(out)
+}
+
+// Update ...
+func (handler *SQLHandler) Update(out interface{}, value interface{}, query interface{}, args ...interface{}) interface{} {
+	return handler.Conn.Model(out).Where(query, args).Updates(value)
 }

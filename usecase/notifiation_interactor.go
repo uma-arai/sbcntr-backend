@@ -23,10 +23,22 @@ func (interactor *NotificationInteractor) GetNotifications() (app model.Notifica
 	return
 }
 
-// GetNotificationCount ...
-func (interactor *NotificationInteractor) GetNotificationCount() (count model.NotificationCount, err error) {
+// GetUnreadNotificationCount ...
+func (interactor *NotificationInteractor) GetUnreadNotificationCount() (count model.NotificationCount, err error) {
 
-	count, err = interactor.NotificationRepository.Count()
+	count, err = interactor.NotificationRepository.Count("unread = ?", true)
+	if err != nil {
+		err = utils.SetErrorMassage("10001E")
+		return
+	}
+
+	return
+}
+
+// MarkNotificationsRead ...
+func (interactor *NotificationInteractor) MarkNotificationsRead() (notification model.Notification, err error) {
+	notification, err = interactor.NotificationRepository.Update(map[string]interface{}{"Unread": false}, "unread = ?", true)
+
 	if err != nil {
 		err = utils.SetErrorMassage("10001E")
 		return
