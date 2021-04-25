@@ -1,8 +1,14 @@
 package main
 
 import (
-	"github.com/uma-arai/sbcntr-backend/infrastructure"
+	"context"
+	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
+	"github.com/uma-arai/sbcntr-backend/infrastructure"
 )
 
 const (
@@ -11,12 +17,38 @@ const (
 )
 
 func main() {
-	router := infrastructure.Router()
 
-	if os.Getenv(envTLSCert) == "" || os.Getenv(envTLSKey) == "" {
-		router.Logger.Fatal(router.Start(":80"))
-	} else {
-		router.Logger.Fatal(router.StartTLS(":443",
-			os.Getenv(envTLSCert), os.Getenv(envTLSKey)))
+	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
+	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
+	quit := make(chan os.Signal, 1)
+	//done := make(chan bool, 1)
+
+	//signal.Notify(signalChanel,
+	//	syscall.SIGHUP,
+	//	syscall.SIGINT,
+	//	syscall.SIGTERM,m
+	//	syscall.SIGQUIT)
+
+	signal.Notify(quit, syscall.SIGTERM)
+
+	router := infrastructure.Router()
+	// Start server
+	go func() {
+		if os.Getenv(envTLSCert) == "" || os.Getenv(envTLSKey) == "" {
+			router.Logger.Fatal(router.Start(":80"))
+		} else {
+			router.Logger.Fatal(router.StartTLS(":443",
+				os.Getenv(envTLSCert), os.Getenv(envTLSKey)))
+		}
+	}()
+
+	<-quit
+	fmt.Println("Caught SIGTERM, shutting down")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	if err := router.Shutdown(ctx); err != nil {
+		router.Logger.Fatal("Error:", err)
 	}
+	fmt.Println("Exited app")
 }

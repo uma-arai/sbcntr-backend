@@ -34,10 +34,10 @@ func NewAPIConfig() *APIConfig {
 func NewConfigDB() *ConfigDB {
 	config := new(ConfigDB)
 
-	os.Setenv("DB_HOST", "localhost")
-	os.Setenv("DB_USERNAME", "sbcntruser")
-	os.Setenv("DB_PASSWORD", "sbcntrpass")
-	os.Setenv("DB_NAME", "sbcntrapp")
+	//os.Setenv("DB_HOST", "localhost")
+	//os.Setenv("DB_USERNAME", "sbcntruser")
+	//os.Setenv("DB_PASSWORD", "sbcntrpass")
+	//os.Setenv("DB_NAME", "sbcntrapp")
 
 	config.MySQL.DBMS = "mysql"
 	config.MySQL.Protocol = "tcp(" + os.Getenv("DB_HOST") + ":3306)"
