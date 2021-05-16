@@ -30,6 +30,7 @@ func NewNotificationHandler(sqlHandler database.SQLHandler) *NotificationHandler
 func (handler *NotificationHandler) GetNotifications() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
 
+		id := c.QueryParam("id")
 		//data := &model.Notification{
 		//	ID:          "1",
 		//	Title:       "notif",
@@ -45,7 +46,7 @@ func (handler *NotificationHandler) GetNotifications() echo.HandlerFunc {
 		//return c.JSON(http.StatusOK, body)
 		//
 
-		resJSON, err := handler.Interactor.GetNotifications()
+		resJSON, err := handler.Interactor.GetNotifications(id)
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)
 		}

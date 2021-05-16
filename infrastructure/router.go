@@ -25,10 +25,12 @@ func Router() *echo.Echo {
 
 	e.GET("/v1/Items", AppHandler.GetItems())
 	e.POST("/v1/Item", AppHandler.CreateItem())
+
+	// TODO: RESTを意識した形式とする
 	e.POST("/v1/Item/favorite", AppHandler.UpdateFavoriteAttr())
 
 	e.GET("/v1/Notifications", NotificationHandler.GetNotifications())
-	e.GET("/v1/Notification/Count", NotificationHandler.GetUnreadNotificationCount())
+	e.GET("/v1/Notifications/Count", NotificationHandler.GetUnreadNotificationCount())
 	e.POST("/v1/Notifications/Read", NotificationHandler.PostNotificationsRead())
 
 	return e

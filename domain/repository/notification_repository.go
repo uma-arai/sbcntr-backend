@@ -19,8 +19,8 @@ type NotificationRepository struct {
 }
 
 // Where ...
-func (repo *NotificationRepository) Where(id string) (app model.Notifications, err error) {
-	repo.SQLHandler.Where(&app, "id = ?", id)
+func (repo *NotificationRepository) Where(id string) (notifications model.Notifications, err error) {
+	repo.SQLHandler.Where(&notifications.Data, "id = ?", id)
 	return
 }
 
