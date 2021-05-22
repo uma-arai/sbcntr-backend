@@ -20,16 +20,15 @@ func (interactor *NotificationInteractor) GetNotifications(id string) (app model
 			return
 		}
 
-		return
 	} else {
 		app, err = interactor.NotificationRepository.Where(id)
 		if err != nil {
 			err = utils.SetErrorMassage("10001E")
 			return
 		}
-
-		return
 	}
+
+	return
 }
 
 // GetUnreadNotificationCount ...

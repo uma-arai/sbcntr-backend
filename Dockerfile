@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install each dependencies
 COPY go.mod /app
-COPY go.sum /app
+#COPY go.sum /app
 RUN go mod download
 RUN apk add --no-cache --virtual git gcc make build-base alpine-sdk
 
