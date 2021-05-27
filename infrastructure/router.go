@@ -1,8 +1,11 @@
 package infrastructure
 
 import (
+	"os"
+
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/labstack/gommon/log"
 	handlers "github.com/uma-arai/sbcntr-backend/handler"
 )
 
@@ -11,8 +14,15 @@ func Router() *echo.Echo {
 	e := echo.New()
 
 	// Middleware
-	e.Use(middleware.Logger())
+	logger := middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: logFormat(),
+		Output: os.Stdout,
+	})
+	e.Use(logger)
 	e.Use(middleware.Recover())
+	e.Logger.SetLevel(log.INFO)
+	e.HideBanner = true
+	e.HidePort = false
 
 	AppHandler := handlers.NewAppHandler(NewSQLHandler())
 	healthCheckHandler := handlers.NewHealthCheckHandler()
@@ -34,4 +44,24 @@ func Router() *echo.Echo {
 	e.POST("/v1/Notifications/Read", NotificationHandler.PostNotificationsRead())
 
 	return e
+}
+
+func logFormat() string {
+	var format string
+
+	format += "{"
+	format += `"time":"${time_rfc3339_nano}",`
+	format += `"id":"${id}",`
+	format += `"uri":"${uri}"`
+	format += `"remote_ip":"${remote_ip}",`
+	format += `"host":"${host}",`
+	format += `"method":"${method}",`
+	format += `"user_agent":"${user_agent}",`
+	format += `"status":"${status}",`
+	format += `"error":"${error}",`
+	format += `"latency":"${latency}",`
+	format += `"log_type":"AccessLog"`
+	format += "}\n"
+
+	return format
 }
