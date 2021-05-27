@@ -52,7 +52,7 @@ func logFormat() string {
 	format += "{"
 	format += `"time":"${time_rfc3339_nano}",`
 	format += `"id":"${id}",`
-	format += `"uri":"${uri}"`
+	format += `"uri":"${uri}",`
 	format += `"remote_ip":"${remote_ip}",`
 	format += `"host":"${host}",`
 	format += `"method":"${method}",`
