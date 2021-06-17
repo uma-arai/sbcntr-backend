@@ -18,9 +18,5 @@
 # Avoid pushing exec binary
 main
 
-# Encrypted checksum of each go module
-go.sum
-
-
 # ----- for IDE (GoLand) -----
 .idea
