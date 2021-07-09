@@ -15,7 +15,9 @@ func Router() *echo.Echo {
 
 	// Middleware
 	logger := middleware.LoggerWithConfig(middleware.LoggerConfig{
-		Format: logFormat(),
+		Format: `{"id":"${id}","time":"${time_rfc3339}","remote_ip":"${remote_ip}",` +
+			`"host":"${host}","method":"${method}","uri":"${uri}","user_agent":"${user_agent}",` +
+			`"status":${status},"error":"${error}"}` + "\n",
 		Output: os.Stdout,
 	})
 	e.Use(logger)
@@ -46,22 +48,22 @@ func Router() *echo.Echo {
 	return e
 }
 
-func logFormat() string {
-	var format string
-
-	format += "{"
-	format += `"time":"${time_rfc3339_nano}",`
-	format += `"id":"${id}",`
-	format += `"uri":"${uri}",`
-	format += `"remote_ip":"${remote_ip}",`
-	format += `"host":"${host}",`
-	format += `"method":"${method}",`
-	format += `"user_agent":"${user_agent}",`
-	format += `"status":"${status}",`
-	format += `"error":"${error}",`
-	format += `"latency":"${latency}",`
-	format += `"log_type":"AccessLog"`
-	format += "}\n"
-
-	return format
-}
+//func logFormat() string {
+//	var format string
+//
+//	format += "{"
+//	format += `"time":"${time_rfc3339_nano}",`
+//	format += `"id":"${id}",`
+//	format += `"uri":"${uri}",`
+//	format += `"remote_ip":"${remote_ip}",`
+//	format += `"host":"${host}",`
+//	format += `"method":"${method}",`
+//	format += `"user_agent":"${user_agent}",`
+//	format += `"status":"${status}",`
+//	format += `"error":"${error}",`
+//	format += `"latency":"${latency}",`
+//	format += `"log_type":"AccessLog"`
+//	format += "}\n"
+//
+//	return format
+//}
