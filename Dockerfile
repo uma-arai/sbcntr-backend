@@ -1,5 +1,5 @@
 # Multi stage building strategy for reducing image size.
-FROM golang:1.16.8-alpine3.14 AS build-env
+FROM golang:1.16.8-alpine3.13 AS build-env
 ENV GO111MODULE=on
 RUN mkdir /app
 WORKDIR /app
