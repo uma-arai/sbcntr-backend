@@ -6,7 +6,7 @@ import (
 
 	"github.com/uma-arai/sbcntr-backend/domain/model"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/uma-arai/sbcntr-backend/domain/repository"
 	"github.com/uma-arai/sbcntr-backend/interface/database"
 	"github.com/uma-arai/sbcntr-backend/usecase"
