@@ -2,10 +2,11 @@ package infrastructure
 
 import (
 	"fmt"
+	"gorm.io/driver/mysql"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql" // for access to mysql
 	"github.com/uma-arai/sbcntr-backend/utils"
+	_ "gorm.io/driver/mysql" // for access to mysql
+	"gorm.io/gorm"
 )
 
 // DB ...
@@ -27,19 +28,18 @@ func NewSQLHandler() *SQLHandler {
 
 	c := utils.NewConfigDB()
 
-	DBMS := c.MySQL.DBMS
 	USER := c.MySQL.Username
 	PASS := c.MySQL.Password
 	PROTOCOL := c.MySQL.Protocol
 	DBNAME := c.MySQL.DBName
 
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true&loc=Asia%2FTokyo"
-	conn, err := gorm.Open(DBMS, CONNECT)
+	conn, err := gorm.Open(mysql.Open(CONNECT), &gorm.Config{})
 
 	if err != nil {
 		// panic(err.Error())
 
-		fmt.Println("Error: No database connection established.", CONNECT)
+		fmt.Print("Error: No database connection established.")
 	}
 	sqlHandler := new(SQLHandler)
 	sqlHandler.Conn = conn
@@ -63,7 +63,8 @@ func (handler SQLHandler) Scan(out interface{}, order string) interface{} {
 
 // Count ...
 func (handler *SQLHandler) Count(out *int, model interface{}, query interface{}, args ...interface{}) interface{} {
-	return handler.Conn.Model(model).Where(query, args).Count(out)
+	out64 := int64(*out)
+	return handler.Conn.Model(model).Where(query, args).Count(&out64)
 }
 
 // Create ...
@@ -71,7 +72,7 @@ func (handler *SQLHandler) Create(input interface{}) (result interface{}, err er
 	fmt.Println(input)
 	response := handler.Conn.Create(input)
 
-	return response.Value, response.Error
+	return nil, response.Error
 }
 
 // Update ...
