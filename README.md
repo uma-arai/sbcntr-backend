@@ -1,4 +1,6 @@
-# sbcntr-backend (Demo Web App)
+# sbcntr-backend 
+
+書籍用のバックエンドAPI用のダウンロードリポジトリです。
 
 ## Overview
 This Repository provides demo web application coded by golang. This app is consist of three APIs.
