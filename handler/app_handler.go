@@ -33,15 +33,6 @@ func NewAppHandler(sqlHandler database.SQLHandler) *AppHandler {
 func (handler *AppHandler) GetItems() echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
 		favorite := c.QueryParam("favorite")
-		//err = utils.HeaderCheck(c, echo.HeaderContentType, echo.MIMEApplicationJSON)
-		//if err != nil {
-		//	return utils.GetErrorMassage(c, "en", err)
-		//}
-
-		//err = utils.ClientIDCheck(c)
-		//if err != nil {
-		//	return utils.GetErrorMassage(c, "en", err)
-		//}
 		resJSON, err := handler.Interactor.GetItems(favorite)
 		if err != nil {
 			return utils.GetErrorMassage(c, "en", err)

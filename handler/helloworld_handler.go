@@ -22,7 +22,6 @@ func (handler *HelloWorldHandler) SayHelloWorld() echo.HandlerFunc {
 		Data: "Hello world",
 	}
 	return func(c echo.Context) error {
-		//time.Sleep(time.Second * 15)
 		return c.JSON(http.StatusOK, body)
 	}
 }

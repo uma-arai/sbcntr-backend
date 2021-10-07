@@ -37,8 +37,6 @@ func Router() *echo.Echo {
 
 	e.GET("/v1/Items", AppHandler.GetItems())
 	e.POST("/v1/Item", AppHandler.CreateItem())
-
-	// TODO: RESTを意識した形式とする
 	e.POST("/v1/Item/favorite", AppHandler.UpdateFavoriteAttr())
 
 	e.GET("/v1/Notifications", NotificationHandler.GetNotifications())
@@ -47,23 +45,3 @@ func Router() *echo.Echo {
 
 	return e
 }
-
-//func logFormat() string {
-//	var format string
-//
-//	format += "{"
-//	format += `"time":"${time_rfc3339_nano}",`
-//	format += `"id":"${id}",`
-//	format += `"uri":"${uri}",`
-//	format += `"remote_ip":"${remote_ip}",`
-//	format += `"host":"${host}",`
-//	format += `"method":"${method}",`
-//	format += `"user_agent":"${user_agent}",`
-//	format += `"status":"${status}",`
-//	format += `"error":"${error}",`
-//	format += `"latency":"${latency}",`
-//	format += `"log_type":"AccessLog"`
-//	format += "}\n"
-//
-//	return format
-//}

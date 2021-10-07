@@ -37,8 +37,8 @@ func NewSQLHandler() *SQLHandler {
 	conn, err := gorm.Open(mysql.Open(CONNECT), &gorm.Config{})
 
 	if err != nil {
+		// Note: ハンズオンでパニックすると辛いのでエラーハンドリングはコメントアウトしています
 		// panic(err.Error())
-
 		fmt.Print("Error: No database connection established.")
 	}
 	sqlHandler := new(SQLHandler)

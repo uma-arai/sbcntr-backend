@@ -21,14 +21,6 @@ func main() {
 	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
 	// Use a buffered channel to avoid missing signals as recommended for signal.Notify
 	quit := make(chan os.Signal, 1)
-	//done := make(chan bool, 1)
-
-	//signal.Notify(signalChanel,
-	//	syscall.SIGHUP,
-	//	syscall.SIGINT,
-	//	syscall.SIGTERM,m
-	//	syscall.SIGQUIT)
-
 	signal.Notify(quit, syscall.SIGTERM)
 
 	router := infrastructure.Router()
