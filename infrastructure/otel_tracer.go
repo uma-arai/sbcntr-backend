@@ -3,9 +3,10 @@ package infrastructure
 import (
 	"context"
 	"fmt"
-	"github.com/horsewin/echo-playground-v2/utils"
-	"github.com/rs/zerolog"
 	"os"
+
+	"github.com/rs/zerolog"
+	"github.com/uma-arai/sbcntr-backend/utils"
 
 	awsxray "go.opentelemetry.io/contrib/propagators/aws/xray"
 	"go.opentelemetry.io/otel"
@@ -34,11 +35,6 @@ func SetupOpenTelemetry(ctx context.Context, serviceName string, serviceVersion 
 	if exporterEndpoint == "" {
 		exporterEndpoint = "127.0.0.1:4318" // デフォルトのOTLP/HTTPエンドポイント
 	}
-
-	// HTTPトレースエクスポーターを作成
-	var exporterOptions []otlptracehttp.Option
-	exporterOptions = append(exporterOptions, otlptracehttp.WithEndpoint(exporterEndpoint))
-	exporterOptions = append(exporterOptions, otlptracehttp.WithInsecure())
 
 	// HTTPトレースエクスポーターを作成
 	exporter, err := otlptracehttp.New(ctx,

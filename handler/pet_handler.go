@@ -3,15 +3,15 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/horsewin/echo-playground-v2/domain/model"
 	"github.com/labstack/echo/v4"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/horsewin/echo-playground-v2/domain/repository"
-	"github.com/horsewin/echo-playground-v2/interface/database"
-	"github.com/horsewin/echo-playground-v2/usecase"
+	"github.com/uma-arai/sbcntr-backend/domain/repository"
+	"github.com/uma-arai/sbcntr-backend/interface/database"
+	"github.com/uma-arai/sbcntr-backend/usecase"
 )
 
 // PetHandler ...

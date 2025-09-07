@@ -3,13 +3,12 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/rs/zerolog"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/horsewin/echo-playground-v2/domain/model"
 	"github.com/labstack/echo/v4"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
 )
 
 // HelloWorldHandler ...
@@ -31,7 +30,6 @@ func (handler *HelloWorldHandler) SayHelloWorld() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		// Get logger from context
 		ctx := c.Request().Context()
-		logger := zerolog.Ctx(ctx)
 
 		// スパンを作成
 		tracer := otel.Tracer("helloworld-handler")

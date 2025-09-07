@@ -1,4 +1,4 @@
-module github.com/horsewin/echo-playground-v2
+module github.com/uma-arai/sbcntr-backend
 
 go 1.23.0
 

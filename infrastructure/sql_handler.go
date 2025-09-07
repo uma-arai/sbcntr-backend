@@ -9,9 +9,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/horsewin/echo-playground-v2/utils"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+	"github.com/uma-arai/sbcntr-backend/utils"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"

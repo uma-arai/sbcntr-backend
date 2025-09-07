@@ -17,6 +17,7 @@
 
 # Avoid pushing exec binary
 main
+sbcntr-backend
 
 .idea
 /.claude/

@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	handlers "github.com/horsewin/echo-playground-v2/handler"
-	"github.com/horsewin/echo-playground-v2/utils"
+	handlers "github.com/uma-arai/sbcntr-backend/handler"
+	"github.com/uma-arai/sbcntr-backend/utils"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/horsewin/echo-playground-v2/domain/model"
-	"github.com/horsewin/echo-playground-v2/interface/database"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
+	"github.com/uma-arai/sbcntr-backend/interface/database"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"

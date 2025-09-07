@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/horsewin/echo-playground-v2/domain/model"
-	business_errors "github.com/horsewin/echo-playground-v2/domain/model/errors"
+	"github.com/uma-arai/sbcntr-backend/domain/model"
+	business_errors "github.com/uma-arai/sbcntr-backend/domain/model/errors"
 )
 
 // usecaseパッケージ内にあるため、repository.petsの内部構造にアクセス可能

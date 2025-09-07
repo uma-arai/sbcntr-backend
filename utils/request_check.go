@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/horsewin/echo-playground-v2/domain/model/errors"
 	"github.com/labstack/echo/v4"
+	"github.com/uma-arai/sbcntr-backend/domain/model/errors"
 )
 
 const (
