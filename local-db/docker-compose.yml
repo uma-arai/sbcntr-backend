@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: sbcntrapp
+      POSTGRES_USER: sbcntrapp
+      POSTGRES_PASSWORD: password
+    command: postgres -c log_statement=all

@@ -1,0 +1,57 @@
+name: Dockle Security Scan
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  DOCKER_BUILDKIT: "1"
+  APP_NAME: sbcntr-backend
+
+jobs:
+  dockle-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set image tag
+      run: |
+        echo "IMAGE_TAG=$(echo ${{ github.sha }} | cut -c 1-7)" >> $GITHUB_ENV
+
+    - name: Build Docker image
+      run: |
+        echo "===== Docker Build started on $(date) ====="
+        echo "Building the Docker image..."
+        docker build -f Dockerfile -t ${APP_NAME}:latest .
+        docker tag ${APP_NAME}:latest ${APP_NAME}:${IMAGE_TAG}
+        docker image ls
+        echo "Completed the ${APP_NAME} Docker image build."
+
+    - name: Install Dockle
+      run: |
+        VERSION=$(curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+        curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb
+        sudo dpkg -i dockle.deb && rm dockle.deb
+
+    - name: Run Dockle security scan
+      run: |
+        echo "===== Dockle security scan started on $(date) ====="
+        dockle --exit-code 1 --exit-level FATAL ${APP_NAME}:${IMAGE_TAG}
+        echo "===== Dockle security scan completed on $(date) ====="
+
+    - name: Generate Dockle report
+      if: always()
+      run: |
+        echo "===== Generating Dockle report on $(date) ====="
+        dockle --format json --output dockle-report.json ${APP_NAME}:${IMAGE_TAG} || true
+        dockle --format table ${APP_NAME}:${IMAGE_TAG} || true
+
+    - name: Upload Dockle report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: dockle-report
+        path: dockle-report.json
+        retention-days: 30

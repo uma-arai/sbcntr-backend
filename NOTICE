@@ -1,0 +1,63 @@
+sbcntr-backend
+Copyright 2025 uma-arai
+
+This product includes software developed at
+https://github.com/uma-arai/sbcntr-backend
+
+=========================================================================
+Third Party Dependencies
+=========================================================================
+
+This product includes the following third-party software:
+
+1. Echo (github.com/labstack/echo/v4)
+   - License: MIT
+   - Copyright (c) 2017 LabStack
+   - https://github.com/labstack/echo
+
+2. SQLx (github.com/jmoiron/sqlx)
+   - License: MIT
+   - Copyright (c) 2013, Jason Moiron
+   - https://github.com/jmoiron/sqlx
+
+3. pq - PostgreSQL driver (github.com/lib/pq)
+   - License: MIT
+   - Copyright (c) 2011-2013, 'pq' Contributors
+   - https://github.com/lib/pq
+
+4. zerolog (github.com/rs/zerolog)
+   - License: MIT
+   - Copyright (c) 2017 Olivier Poitrey
+   - https://github.com/rs/zerolog
+
+5. Copier (github.com/jinzhu/copier)
+   - License: MIT
+   - Copyright (c) 2015 Jinzhu
+   - https://github.com/jinzhu/copier
+
+6. OpenTelemetry Go (go.opentelemetry.io/otel)
+   - License: Apache 2.0
+   - Copyright The OpenTelemetry Authors
+   - https://github.com/open-telemetry/opentelemetry-go
+
+7. OpenTelemetry Go Contrib (go.opentelemetry.io/contrib)
+   - License: Apache 2.0
+   - Copyright The OpenTelemetry Authors
+   - https://github.com/open-telemetry/opentelemetry-go-contrib
+
+8. gRPC-Go (google.golang.org/grpc)
+   - License: Apache 2.0
+   - Copyright 2014 gRPC authors
+   - https://github.com/grpc/grpc-go
+
+9. Protocol Buffers for Go (google.golang.org/protobuf)
+   - License: BSD 3-Clause
+   - Copyright 2018 The Go Authors
+   - https://github.com/protocolbuffers/protobuf-go
+
+10. Go standard library extensions (golang.org/x/*)
+    - License: BSD 3-Clause
+    - Copyright (c) 2009 The Go Authors
+    - https://golang.org/x/
+
+For complete license texts, please refer to the respective project repositories.
