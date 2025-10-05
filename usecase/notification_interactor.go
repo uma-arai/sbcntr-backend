@@ -2,6 +2,8 @@ package usecase
 
 import (
 	"context"
+	rand "math/rand"
+	"time"
 
 	"github.com/uma-arai/sbcntr-backend/domain/model"
 	"github.com/uma-arai/sbcntr-backend/domain/model/errors"
@@ -75,6 +77,7 @@ func induceCpuLoad() {
 				return
 			default:
 				// CPU負荷を継続
+				_ = 1 + 1
 			}
 		}
 	}()
