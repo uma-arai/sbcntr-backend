@@ -41,11 +41,6 @@ func (interactor *PetInteractor) GetPets(ctx context.Context, filter *model.PetF
 		)
 	}
 
-	//// 性能テスト用：3回に1回だけCPU負荷を発生させる
-	//if rand.Intn(3) == 0 {
-	//	induceCpuLoad()
-	//}
-
 	// 性能テスト用：3回に1回だけレイテンシを発生させる
 	if rand.Intn(3) == 0 {
 		induceLatency()
@@ -202,19 +197,6 @@ func (interactor *PetInteractor) CreateReservation(ctx context.Context, input *m
 	}
 	return
 }
-
-//// induceCpuLoad ... 意図的にテスト用のCPU負荷を発生させる関数
-//func induceCpuLoad() {
-//	t := time.NewTimer(3 * time.Second)
-//
-//	go func() {
-//		//nolint:staticcheck // 意図的に無限ループを作成してCPU負荷をシミュレートするためのコード
-//		for {
-//		}
-//	}()
-//	<-t.C
-//	t.Stop()
-//}
 
 // induceLatency ... 意図的にテスト用のレイテンシを発生させる関数
 func induceLatency() {

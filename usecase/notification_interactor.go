@@ -15,6 +15,11 @@ type NotificationInteractor struct {
 
 // GetNotifications ...
 func (interactor *NotificationInteractor) GetNotifications(ctx context.Context, id string) (app model.Notifications, err error) {
+	// 性能テスト用：3回に1回だけCPU負荷を発生させる
+	if rand.Intn(3) == 0 {
+		induceCpuLoad()
+	}
+
 	if id == "" {
 		app, err = interactor.NotificationRepository.FindAll(ctx)
 		if err != nil {
@@ -56,4 +61,25 @@ func (interactor *NotificationInteractor) MarkNotificationsRead(ctx context.Cont
 	}
 
 	return
+}
+
+// induceCpuLoad ... 意図的にテスト用のCPU負荷を発生させる関数
+func induceCpuLoad() {
+	t := time.NewTimer(5 * time.Second)
+	stop := make(chan struct{})
+
+	go func() {
+		for {
+			select {
+			case <-stop:
+				return
+			default:
+				// CPU負荷を継続
+			}
+		}
+	}()
+
+	<-t.C
+	close(stop)
+	t.Stop()
 }
