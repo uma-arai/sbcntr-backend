@@ -41,10 +41,10 @@ func (interactor *PetInteractor) GetPets(ctx context.Context, filter *model.PetF
 		)
 	}
 
-	// 性能テスト用：3回に1回だけCPU負荷を発生させる
-	if rand.Intn(3) == 0 {
-		induceCpuLoad()
-	}
+	//// 性能テスト用：3回に1回だけCPU負荷を発生させる
+	//if rand.Intn(3) == 0 {
+	//	induceCpuLoad()
+	//}
 
 	// 性能テスト用：3回に1回だけレイテンシを発生させる
 	if rand.Intn(3) == 0 {
