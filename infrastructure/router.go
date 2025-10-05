@@ -211,8 +211,8 @@ func setupMiddlewares(e *echo.Echo, logger zerolog.Logger, apiConfig *utils.APIC
 	// ログ出力設定（DisableLoggingがfalseの場合のみ）
 	if !apiConfig.DisableLogging {
 		e.Use(setupRequestLogger(logger))
-		logger.Info().Msgf("logger enabled : %v", !apiConfig.DisableLogging)
 	}
+	logger.Info().Msgf("logger enabled option: %v", !apiConfig.DisableLogging)
 
 	// OpenTelemetryミドルウェア
 	e.Use(setupOpenTelemetryMiddleware())
