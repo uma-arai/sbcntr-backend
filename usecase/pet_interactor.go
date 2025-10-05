@@ -212,7 +212,7 @@ func induceLatency() {
 
 // induceCpuLoad ... 意図的にテスト用のCPU負荷を発生させる関数
 func induceCpuLoad() {
-	t := time.NewTimer(3 * time.Second)
+	t := time.NewTimer(500 * time.Millisecond)
 	stop := make(chan struct{})
 
 	go func() {
