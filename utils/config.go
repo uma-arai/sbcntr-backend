@@ -11,7 +11,8 @@ type APIConfig struct {
 	HeaderValue struct {
 		ClientID string
 	}
-	EnableTracing bool
+	EnableTracing  bool
+	DisableLogging bool
 }
 
 // ConfigDB ...
@@ -35,6 +36,14 @@ func NewAPIConfig() *APIConfig {
 		config.EnableTracing = true
 	} else {
 		config.EnableTracing = false
+	}
+
+	// 環境変数[SBCNTR_DISABLE_LOGGING]を見てリクエストログを無効にする
+	disableLoggingKey := os.Getenv("SBCNTR_DISABLE_LOGGING")
+	if strings.ToLower(disableLoggingKey) == "true" || disableLoggingKey == "1" {
+		config.DisableLogging = true
+	} else {
+		config.DisableLogging = false
 	}
 
 	config.Env = os.Getenv("APP_ENV")

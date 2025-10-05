@@ -195,7 +195,7 @@ func Router() *echo.Echo {
 	e.HidePort = false
 
 	// Setup middlewares
-	setupMiddlewares(e, logger)
+	setupMiddlewares(e, logger, apiConfig)
 
 	// Register routes
 	registerRoutes(e)
@@ -204,12 +204,15 @@ func Router() *echo.Echo {
 }
 
 // setupMiddlewares ミドルウェアを設定
-func setupMiddlewares(e *echo.Echo, logger zerolog.Logger) {
+func setupMiddlewares(e *echo.Echo, logger zerolog.Logger, apiConfig *utils.APIConfig) {
 	// リクエストIDの生成
 	e.Use(middleware.RequestID())
 
-	// ログ出力設定
-	e.Use(setupRequestLogger(logger))
+	// ログ出力設定（DisableLoggingがfalseの場合のみ）
+	if !apiConfig.DisableLogging {
+		e.Use(setupRequestLogger(logger))
+		logger.Info().Msgf("logger started")
+	}
 
 	// OpenTelemetryミドルウェア
 	e.Use(setupOpenTelemetryMiddleware())
