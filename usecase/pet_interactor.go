@@ -41,6 +41,11 @@ func (interactor *PetInteractor) GetPets(ctx context.Context, filter *model.PetF
 		)
 	}
 
+	// 性能テスト用：3回に1回だけCPU負荷を発生させる
+	if rand.Intn(3) == 0 {
+		induceCpuLoad()
+	}
+
 	// 性能テスト用：3回に1回だけレイテンシを発生させる
 	if rand.Intn(3) == 0 {
 		induceLatency()
@@ -203,4 +208,26 @@ func induceLatency() {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	milliseconds := r.Intn(500) + 500
 	time.Sleep(time.Duration(milliseconds) * time.Millisecond)
+}
+
+// induceCpuLoad ... 意図的にテスト用のCPU負荷を発生させる関数
+func induceCpuLoad() {
+	t := time.NewTimer(3 * time.Second)
+	stop := make(chan struct{})
+
+	go func() {
+		for {
+			select {
+			case <-stop:
+				return
+			default:
+				// CPU負荷を継続
+				_ = 1 + 1
+			}
+		}
+	}()
+
+	<-t.C
+	close(stop)
+	t.Stop()
 }
