@@ -203,18 +203,18 @@ func (interactor *PetInteractor) CreateReservation(ctx context.Context, input *m
 	return
 }
 
-// induceCpuLoad ... 意図的にテスト用のCPU負荷を発生させる関数
-func induceCpuLoad() {
-	t := time.NewTimer(3 * time.Second)
-
-	go func() {
-		//nolint:staticcheck // 意図的に無限ループを作成してCPU負荷をシミュレートするためのコード
-		for {
-		}
-	}()
-	<-t.C
-	t.Stop()
-}
+//// induceCpuLoad ... 意図的にテスト用のCPU負荷を発生させる関数
+//func induceCpuLoad() {
+//	t := time.NewTimer(3 * time.Second)
+//
+//	go func() {
+//		//nolint:staticcheck // 意図的に無限ループを作成してCPU負荷をシミュレートするためのコード
+//		for {
+//		}
+//	}()
+//	<-t.C
+//	t.Stop()
+//}
 
 // induceLatency ... 意図的にテスト用のレイテンシを発生させる関数
 func induceLatency() {
