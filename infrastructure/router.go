@@ -2,11 +2,9 @@ package infrastructure
 
 import (
 	"context"
-	"os"
-	"time"
-
 	handlers "github.com/uma-arai/sbcntr-backend/handler"
 	"github.com/uma-arai/sbcntr-backend/utils"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -62,7 +60,6 @@ func setupRequestLogger(logger zerolog.Logger) echo.MiddlewareFunc {
 			rid := c.Response().Header().Get(echo.HeaderXRequestID)
 
 			event.Str("request_id", rid).
-				Str("time", time.Now().Format(time.RFC3339Nano)).
 				Str("remote_ip", v.RemoteIP).
 				Str("method", v.Method).
 				Str("latency", v.Latency.String()).
