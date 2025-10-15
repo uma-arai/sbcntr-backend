@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/rs/zerolog"
 	"os"
 	"os/signal"
 	"syscall"
@@ -15,6 +16,24 @@ const (
 	envTLSCert = "TLS_CERT"
 	envTLSKey  = "TLS_KEY"
 )
+
+// init ... sets the timezone for logging based on the TZ environment variable, defaulting to Asia/Tokyo if not set.
+func init() {
+	tz := os.Getenv("TZ")
+	if tz == "" {
+		tz = "Asia/Tokyo"
+	}
+
+	loc, err := time.LoadLocation(tz)
+	if err != nil {
+		log.Warn().Err(err).Msg("Failed to load location, defaulting to UTC")
+		return
+	}
+
+	zerolog.TimestampFunc = func() time.Time {
+		return time.Now().In(loc)
+	}
+}
 
 func main() {
 	// Wait for interrupt signal to gracefully shutdown the server with a timeout of 10 seconds.
