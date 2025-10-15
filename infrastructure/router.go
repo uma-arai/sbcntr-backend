@@ -182,20 +182,18 @@ func registerRoutes(e *echo.Echo) {
 
 // Router ...
 func Router() *echo.Echo {
-	// Setup
-	logger := zerolog.New(os.Stdout)
 	e := echo.New()
 	apiConfig := utils.NewAPIConfig()
 
 	// Configure OpenTelemetry
-	configureOpenTelemetry(apiConfig, logger)
+	configureOpenTelemetry(apiConfig, zerologlog.Logger)
 
 	// Configure Echo settings
 	e.HideBanner = true
 	e.HidePort = false
 
 	// Setup middlewares
-	setupMiddlewares(e, logger, apiConfig)
+	setupMiddlewares(e, zerologlog.Logger, apiConfig)
 
 	// Register routes
 	registerRoutes(e)
