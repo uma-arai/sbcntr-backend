@@ -25,6 +25,11 @@ RUN make validate && \
 ### If use TLS connection in container, add ca-certificates following command.
 ### > RUN apt-get update && apt-get install -y ca-certificates
 FROM public.ecr.aws/debian/debian
+
+# Install dnsutils for nslookup command
+# ハンズオンで利用する名前解決用にnslookupを導入(本番向けイメージには不要)
+RUN apt-get update && apt-get install -y dnsutils && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /app/bin/main /
 EXPOSE 80
 ENTRYPOINT ["/main"]
