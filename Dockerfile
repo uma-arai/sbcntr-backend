@@ -1,32 +1,24 @@
-# Multi stage building strategy for reducing image size.
+# === builder: 依存関係生成用 ===
 FROM public.ecr.aws/docker/library/golang:1.23.4 AS builder
 ENV GO111MODULE=on \
     GOPATH=/go \
     GOBIN=/go/bin \
     PATH=/go/bin:$PATH
-
-# Set working directory
 WORKDIR /app
-
-# Install each dependencies
 COPY go.mod go.sum ./
 RUN go mod download
-
-# Install golangci-lint
 RUN go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.63.4
-
-# COPY main module
 COPY . /app
 
-# Check and Build
+# ビルドを実行
 RUN make validate && \
     make build-linux
 
+# === runner: 本番イメージ ===
 ### If use TLS connection in container, add ca-certificates following command.
 ### > RUN apt-get update && apt-get install -y ca-certificates
-FROM public.ecr.aws/debian/debian
+FROM public.ecr.aws/debian/debian as runner
 
-# Install dnsutils for nslookup command
 # ハンズオンで利用する名前解決用にnslookupを導入(本番向けイメージには不要)
 RUN apt-get update && apt-get install -y dnsutils && rm -rf /var/lib/apt/lists/*
 
